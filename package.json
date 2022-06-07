@@ -1,61 +1,36 @@
 {
-  "_from": "nb@^6.10.0",
-  "_id": "zsh-nb@6.10.0",
-  "_inBundle": false,
-  "_location": "/zsh-nb",
-  "_phantomChildren": {},
-  "_requested": {
-    "type": "range",
-    "registry": true,
-    "raw": "nb@^6.10.0",
-    "name": "nb",
-    "escapedName": "nb",
-    "rawSpec": "^6.10.0",
-    "saveSpec": null,
-    "fetchSpec": "^6.10.0"
-  },
-  "_requiredBy": [],
-  "_resolved": "https://github.com/xwmx/nb/archive/refs/tags/6.10.0.tar.gz",
-  "_shasum": "f8bccfbf69a0e9f4349eb91b575c671038dcb116",
-  "_spec": "nb@^6.10.0",
   "name": "zsh-nb",
-  "homepage": "https://github.com/xwmx/nb",
-  "license": "AGPL-3.0",
-  "author": "William Melody",
   "contributors": [],
-  "dependencies": {},
-  "deprecated": false,
-  "devDependencies": {},
   "description": "CLI and local web plain text note‑taking, bookmarking, and archiving with linking, tagging, filtering, search, Git versioning & syncing, Pandoc conversion, + more, in a single portable script.",
-  "directories": {
-    "test": "test"
-  },
-  "scripts": {
-    "test": "make test"
-  },
+  "homepage": "https://github.com/xwmx/nb",
+  "author": "Z-Shell Community",
   "bugs": {
     "url": "https://github.com/xwmx/nb/issues"
   },
+  "license": "AGPL-3.0",
   "keywords": [
-    "Zshell",
+    "notebook",
+    "zpackage",
+    "zshell",
     "zsh",
     "nb"
   ],
-  "version": "6.10.0",
   "zsh-data": {
     "plugin-info": {
       "user": "xwmx",
       "plugin": "nb",
-      "version": "6.10.0"
+      "version": "6.11.1"
     },
     "zi-ices": {
       "default": {
         "requires": "bgn;bash",
-        "sbin": "nb",
-        "nocompile": "",
+        "git": "",
+        "lucid": "",
         "as": "completion",
-        "depth": 3,
-        "atclone": "mv -vf etc/nb-completion.zsh _nb"
+        "atclone": "mv -vf etc/nb-completion.zsh _nb",
+        "atpull": "%atclone",
+        "sbin": "nb",
+        "nocompile": ""
       }
     }
   }
