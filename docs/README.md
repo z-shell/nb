@@ -1,25 +1,22 @@
-<h1 align="center" width="100%">
-  <a href="https://github.com/z-shell/zi">
-    <img align="center" src="https://github.com/z-shell/zi/raw/main/docs/images/logo.svg" alt="Logo" width="60px" height="60px" />
-  </a> ❮ ZI ❯ Package - nb </h1>
-
-<h2 align="center">
+<div align="center" width="100%">
+<h1><a href="https://github.com/z-shell/zi">
+  <img align="center" src="https://github.com/z-shell/zi/raw/main/docs/images/logo.svg" alt="Logo" width="60px" height="60px" /></a>
+  ❮ ZI ❯ Package - nb </h1>
+  <h2 align="center">
+    <p> Provides CLI and local web plain text note‑taking, bookmarking, and archiving with linking, tagging, filtering, search.</p></h2>
+<h3 align="center">
 
 | **Package source:** |        Source Tarball        | Git | Node | Gem |
 | :-----------------: | :--------------------------: | :-: | :--: | :-: |
 |     **Status:**     | :heavy_check_mark: (default) |  -  | :x:  | :x: |
 
-</h2><h3 align="center">
-
-Provides CLI and local web plain text note‑taking, bookmarking, and archiving with linking, tagging, filtering, search, Git versioning & syncing, Pandoc conversion, + more, in a single portable script.
-
-</h3><hr />
+</h3></div><hr />
 
 ### Available `pack''` invocations
 
 The package installed locally into a plugin directory and provided to the command line through _shims_, i.e.: automatic forwarder scripts created under `$ZPFX/bin` (which is added to the `$PATH` by default; shims are also a bin-gem-node annex feature).
 
-```zsh
+```shell
 zi pack for nb
 ```
 
