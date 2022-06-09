@@ -1,16 +1,27 @@
-<div align="center" width="100%">
-<h1><a href="https://github.com/z-shell/zi">
+<h1 align="center">
+  <p><a href="https://github.com/z-shell/zi">
   <img align="center" src="https://github.com/z-shell/zi/raw/main/docs/images/logo.svg" alt="Logo" width="60px" height="60px" /></a>
-  ❮ ZI ❯ Package - nb </h1>
-  <h2 align="center">
-    <p> Provides CLI and local web plain text note‑taking, bookmarking, and archiving with linking, tagging, filtering, search.</p></h2>
+  ❮ ZI ❯ Package - nb </p>
+</h1>
+<h2 align="center">
+    <p> Feature-rich note‑taking </p></h2>
 <h3 align="center">
-
-| **Package source:** |        Source Tarball        | Git | Node | Gem |
-| :-----------------: | :--------------------------: | :-: | :--: | :-: |
-|     **Status:**     | :heavy_check_mark: (default) |  -  | :x:  | :x: |
-
-</h3></div><hr />
+<table>
+    <tr>
+        <td><b>Package source:</b></td>
+        <td>Source Tarball</td>
+        <td>Git</td>
+        <td>Node</td>
+        <td>Gem</td>
+    </tr>
+    <tr>
+        <td><b>Status:</b></td>
+        <td>✔️ (default)</td>
+        <td>➖</td>
+        <td>❌</td>
+        <td>❌</td>
+    </tr>
+</table></h3><hr />
 
 ### Available `pack''` invocations
 
