@@ -18,8 +18,7 @@
   "zsh-data": {
     "plugin-info": {
       "user": "xwmx",
-      "plugin": "nb",
-      "version": "6.11.1"
+      "plugin": "nb"
     },
     "zi-ices": {
       "default": {
@@ -27,8 +26,7 @@
         "git": "",
         "lucid": "",
         "as": "completion",
-        "atclone": "mv -vf etc/nb-completion.zsh _nb",
-        "atpull": "%atclone",
+        "atclone": "ln -vf etc/nb-completion.zsh _nb",
         "sbin": "nb",
         "nocompile": ""
       }

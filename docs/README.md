@@ -35,14 +35,14 @@ zi pack for nb
 
 ```shell
 zi ice as'completion' nocompile sbin'nb' \
-  depth'3' atclone'mv -vf etc/nb-completion.zsh _nb'
+  depth'3' atclone'ln -vf etc/nb-completion.zsh _nb'
 zi light @xwmx/nb
 ```
 
 ```shell
 # Same as above, except using the For syntax
 zi for as'completion' nocompile sbin'nb' \
-  depth'3' atclone'mv -vf etc/nb-completion.zsh _nb' \
+  depth'3' atclone'ln -vf etc/nb-completion.zsh _nb' \
     @xwmx/nb
 ```
 
