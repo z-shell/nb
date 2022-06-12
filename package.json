@@ -19,7 +19,6 @@
     "plugin-info": {
       "user": "xwmx",
       "plugin": "nb",
-      "version": "6.11.1"
     },
     "zi-ices": {
       "default": {
@@ -27,7 +26,7 @@
         "git": "",
         "lucid": "",
         "as": "completion",
-        "atclone": "mv -vf etc/nb-completion.zsh _nb",
+        "atclone": "ln -vf etc/nb-completion.zsh _nb",
         "atpull": "%atclone",
         "sbin": "nb",
         "nocompile": ""
