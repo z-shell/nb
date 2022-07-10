@@ -27,7 +27,7 @@
         "depth": "1",
         "lucid": "",
         "as": "completion",
-        "atclone": "ln -vf etc/nb-completion.zsh _nb",
+        "atclone": "ln -vf etc/nb-completion.zsh _nb; zi creinstall -q nb",
         "sbin": "nb",
         "nocompile": ""
       }
