@@ -1,0 +1,22 @@
+---
+name: "🆗 Commit"
+
+on:
+  workflow_diaspatch:
+
+jobs:
+  commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⤵️ Check out code from GitHub
+        uses: actions/checkout@v3
+      - name: "🆗 Commit"
+        uses: z-shell/.github/actions/commit@main
+        with:
+          # Optional: Git Commit Message. Defaults to "Regenerate build artifacts."
+          commitMessage: ${{ github.sha }}
+          # Optional: workDir: - Optional.
+          # To specify a directory other than the repository root to check for changed files.
+          workDir: .
+          commitUserName: ${{ secrets.ACTIONS_USER }}
+          commitUserEmail: ${{ secrets.ACTIONS_MAIL }}
