@@ -2,7 +2,7 @@
 name: "🆗 Commit"
 
 on:
-  workflow_diaspatch:
+  workflow_dispatch: {}
 
 jobs:
   commit:
