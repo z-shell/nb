@@ -1,15 +1,20 @@
 <h1 align="center">
   <a href="https://github.com/z-shell/zi">
   <img align="center" src="https://github.com/z-shell/zi/raw/main/docs/images/logo.png" alt="Logo" width="60px" height="60px" /></a>
-  ❮ Zsh + Nb ❯</h1>
+  ❮ Zsh + Nb ❯
+</h1>
+<h1 align="center">
+
+Feature-rich, next level notebook by [`xwmx/nb`](https://github.com/xwmx/nb)
+
+</h1>
+<div align="center">
+  <p><img align="center" src="https://raw.githubusercontent.com/xwmx/nb/master/docs/assets/images/nb.png" alt="xwmx/nb" width="60%" height="auto" /><p>
+  <p><img align="center" src="https://user-images.githubusercontent.com/59910950/208317498-a5746464-5beb-4ca3-8c6c-39ea7817d40d.gif" alt="xwmx/nb" width="100%" height="auto" /></p>
+</div>
+
 <div align="center">
 <h2>
-  <img align="center" src="https://raw.githubusercontent.com/xwmx/nb/master/docs/assets/images/nb.png" alt="xwmx/nb" width="60%" height="auto" />
-</h2>
-
-## Feature-rich, next level notes by [`xwmx/nb`](https://github.com/xwmx/nb)
-
-<h3>
 <table>
     <tr>
         <td><b>Package source:</b></td>
@@ -28,7 +33,7 @@
         <td>❌</td>
     </tr>
    </table>
-</h3>
+</h2>
 
 </div><hr />
 
