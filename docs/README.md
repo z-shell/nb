@@ -37,13 +37,23 @@
 [Standard syntax](https://wiki.zshell.dev/docs/guides/syntax/common#standard-syntax)
 
 ```zsh
+zi ice depth'1' as'program' pick'bin/*' blockf
+zi light z-shell/nb
+```
+
+[Standard syntax + Bin Gem Node](https://wiki.zshell.dev/ecosystem/annexes/bin-gem-node)
+
+```shell
+zi ice depth'1' as'program' sbin'bin/*' blockf
 zi light z-shell/nb
 ```
 
 [Turbo Mode + "For" syntax](https://wiki.zshell.dev/docs/getting_started/overview#turbo-mode-zsh--53)
 
-```zsh
-zi wait lucid for z-shell/nb
+```shell
+zi wait lucid for \
+  depth'1' as'program' sbin'bin/*' blockf \
+    z-shell/nb
 ```
 
 [Zi](https://github.com/z-shell/zi) package
