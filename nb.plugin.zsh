@@ -19,8 +19,3 @@ fi
 if [[ $PMSPEC != *b* ]]; then
   path+=( "${0:h}/bin" )
 fi
-
-# Checked out submodule if missing
-if [[ ! -r src/.git ]]; then
-  git submodule update -q --init --recursive
-fi
