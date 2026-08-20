@@ -42,14 +42,14 @@ Feature-rich, next level notebook by [`xwmx/nb`](https://github.com/xwmx/nb)
 [Standard syntax](https://wiki.zshell.dev/docs/guides/syntax/common#standard-syntax)
 
 ```zsh
-zi ice depth'1' as'program' pick'bin/*' blockf atinit'source ./lib/xdg-defaults.zsh'
+zi ice depth'1' blockf
 zi light z-shell/nb
 ```
 
 [Standard syntax + Bin Gem Node](https://wiki.zshell.dev/ecosystem/annexes/bin-gem-node)
 
 ```shell
-zi ice depth'1' as'program' sbin'bin/*' blockf atinit'source ./lib/xdg-defaults.zsh'
+zi ice depth'1' sbin'bin/*' blockf
 zi light z-shell/nb
 ```
 
@@ -57,7 +57,7 @@ zi light z-shell/nb
 
 ```shell
 zi wait lucid for \
-  depth'1' as'program' sbin'bin/*' blockf atinit'source ./lib/xdg-defaults.zsh' \
+  depth'1' sbin'bin/*' blockf \
     z-shell/nb
 ```
 
@@ -74,10 +74,19 @@ zi pack for nb
 `nb` writes its notebooks and configuration under `$HOME` by default. This
 plugin exports `NBRC_PATH`, `NB_DIR`, and `NB_HIST` with
 [XDG Base Directory](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html)
-defaults instead — but only when you have not already set the variable
+defaults instead, but only when you have not already set the variable
 yourself **and** its legacy `$HOME` path does not already exist. An
 existing `~/.nbrc` or `~/.nb` install keeps working exactly as before;
 only a fresh install gets XDG-compliant paths.
+
+To use your own paths, export the variable anywhere that runs before the
+plugin loads (`.zshenv`, `.zshrc`, an `atinit` ice, anything):
+
+```shell
+NB_DIR="${HOME}/Notes"    # wins over the XDG default below
+zi ice depth'1' sbin'bin/*' blockf
+zi light z-shell/nb
+```
 
 | Variable    | XDG default                                        | Skipped when this already exists |
 | ----------- | -------------------------------------------------- | -------------------------------- |
@@ -85,19 +94,22 @@ only a fresh install gets XDG-compliant paths.
 | `NB_DIR`    | `${XDG_DATA_HOME:-$HOME/.local/share}/nb`          | `~/.nb`                          |
 | `NB_HIST`   | `${XDG_STATE_HOME:-$HOME/.local/state}/nb/history` | `~/.nb_history`                  |
 
-Every other `nb` variable (editor, theme, sync, encryption tool, …) is
-already picked up the same way by `nb` itself: export it before `nb` runs
-and it takes effect. See
+Every other `nb` variable (editor, theme, sync, encryption tool, and so
+on) is already picked up the same way by `nb` itself: export it before
+`nb` runs and it takes effect. See
 [nb's variables reference](https://xwmx.github.io/nb/#-variables) for the
 full list.
 
-The defaulting logic lives in one place, [`lib/xdg-defaults.zsh`](../lib/xdg-defaults.zsh).
-`as'program'` and `as'completion'` — the modes the recipes above and
-`package.json`'s `zi-ices` both use — never source `nb.plugin.zsh`, so
-each recipe's `atinit` sources `lib/xdg-defaults.zsh` directly instead;
-it's already part of the recipes above, you don't need to add anything
-yourself. Managers that do source `nb.plugin.zsh` directly, such as
-Oh-My-Zsh and Zgen below, get the same file sourced from the plugin body.
+The defaulting logic lives in one place,
+[`lib/xdg-defaults.zsh`](../lib/xdg-defaults.zsh), sourced by
+`nb.plugin.zsh`. It needs no ice of its own, and no `.zshrc` boilerplate
+beyond the recipes above. Note that the recipes deliberately do **not**
+use `as'program'`: that mode makes Zi skip `nb.plugin.zsh` entirely, so
+the plugin can set neither these defaults nor `$PATH`. The plugin adds
+its own `bin/` to `$PATH` when the plugin manager does not
+(`$PMSPEC` without `b`, which is Zi's case), so `as'program'` is not
+needed. If you do install with `as'program'`, you are opting out of the
+plugin body and have to set the variables yourself.
 
 ### [Oh-My-Zsh](https://github.com/ohmyzsh/ohmysh)
 

@@ -13,11 +13,6 @@ Plugins[NB_DIR]="${0:h}"
 # --- nb XDG Base Directory defaults -----------------------------------------
 # Documented global effect: export NBRC_PATH, NB_DIR, and NB_HIST with XDG
 # Base Directory defaults. See lib/xdg-defaults.zsh for what it does and why.
-#
-# NOTE: Zi's `as'program'`/`as'completion'` install modes -- the ones this
-# plugin documents and package.json's zi-ices recommend -- never source this
-# file, so the `atinit` ice in package.json and docs/README.md sources
-# lib/xdg-defaults.zsh directly instead.
 source "${0:h}/lib/xdg-defaults.zsh"
 # --- end nb XDG Base Directory defaults -------------------------------------
 
