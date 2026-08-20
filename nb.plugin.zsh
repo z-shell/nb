@@ -36,9 +36,14 @@ Plugins[NB_DIR]="${0:h}"
 [[ -n ${NB_DIR-} ]] && typeset -gx NB_DIR
 [[ -n ${NB_HIST-} ]] && typeset -gx NB_HIST
 
-# Upstream `nb init` writes NBRC_PATH with a bare `>` redirect and no
-# `mkdir -p` safety net, unlike its NB_DIR creation path.
-[[ -e ${NBRC_PATH} || -d ${NBRC_PATH:h} ]] || mkdir -p -- "${NBRC_PATH:h}"
+# Create the parent directories the defaults point into. Upstream `nb init`
+# writes NBRC_PATH with a bare `>` redirect and no `mkdir -p` safety net,
+# unlike its NB_DIR creation path, and nb assigns NB_HIST straight to
+# HISTFILE, where a missing directory loses the history silently.
+[[ -z ${NBRC_PATH-} || -e ${NBRC_PATH} || -d ${NBRC_PATH:h} ]] ||
+  mkdir -p -- "${NBRC_PATH:h}"
+[[ -z ${NB_HIST-} || -e ${NB_HIST} || -d ${NB_HIST:h} ]] ||
+  mkdir -p -- "${NB_HIST:h}"
 
 # https://wiki.zshell.dev/community/zsh_plugin_standard#funtions-directory
 if [[ $PMSPEC != *f* ]]; then
