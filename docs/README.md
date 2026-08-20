@@ -83,7 +83,7 @@ To use your own paths, export the variable anywhere that runs before the
 plugin loads (`.zshenv`, `.zshrc`, an `atinit` ice, anything):
 
 ```shell
-NB_DIR="${HOME}/Notes"    # wins over the XDG default below
+NB_DIR="${HOME}/Notes"    # wins over the XDG default
 zi ice depth'1' sbin'bin/*'
 zi light z-shell/nb
 ```

@@ -14,14 +14,18 @@ Plugins[NB_DIR]="${0:h}"
 #
 # nb defaults all three to $HOME. Give them XDG Base Directory values
 # instead, but only when the legacy $HOME path does not already exist, so
-# an existing install keeps working and only a fresh one moves. Declaring
-# any of them before this plugin loads always wins, same as every other nb
-# variable: https://xwmx.github.io/nb/#-variables
-[[ -e ${HOME}/.nbrc ]] ||
+# an existing install keeps working and only a fresh one moves. -L catches
+# a dangling symlink: an unstowed dotfiles link still means the user put a
+# config there, and silently redirecting them to a different one is worse
+# than pointing at the path they chose.
+#
+# Declaring any of them before this plugin loads always wins, same as
+# every other nb variable: https://xwmx.github.io/nb/#-variables
+[[ -e ${HOME}/.nbrc || -L ${HOME}/.nbrc ]] ||
   : ${NBRC_PATH:=${XDG_CONFIG_HOME:-${HOME}/.config}/nb/nbrc}
-[[ -e ${HOME}/.nb ]] ||
+[[ -e ${HOME}/.nb || -L ${HOME}/.nb ]] ||
   : ${NB_DIR:=${XDG_DATA_HOME:-${HOME}/.local/share}/nb}
-[[ -e ${HOME}/.nb_history ]] ||
+[[ -e ${HOME}/.nb_history || -L ${HOME}/.nb_history ]] ||
   : ${NB_HIST:=${XDG_STATE_HOME:-${HOME}/.local/state}/nb/history}
 
 # Export unconditionally, so a plain `NB_DIR=…` assignment made before this
