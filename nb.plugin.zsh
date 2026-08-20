@@ -10,11 +10,31 @@
 typeset -gA Plugins
 Plugins[NB_DIR]="${0:h}"
 
-# --- nb XDG Base Directory defaults -----------------------------------------
-# Documented global effect: export NBRC_PATH, NB_DIR, and NB_HIST with XDG
-# Base Directory defaults. See lib/xdg-defaults.zsh for what it does and why.
-source "${0:h}/lib/xdg-defaults.zsh"
-# --- end nb XDG Base Directory defaults -------------------------------------
+# Documented global effect: exports NBRC_PATH, NB_DIR, and NB_HIST.
+#
+# nb defaults all three to $HOME. Give them XDG Base Directory values
+# instead, but only when the legacy $HOME path does not already exist, so
+# an existing install keeps working and only a fresh one moves. Declaring
+# any of them before this plugin loads always wins, same as every other nb
+# variable: https://xwmx.github.io/nb/#-variables
+[[ -e ${HOME}/.nbrc ]] ||
+  : ${NBRC_PATH:=${XDG_CONFIG_HOME:-${HOME}/.config}/nb/nbrc}
+[[ -e ${HOME}/.nb ]] ||
+  : ${NB_DIR:=${XDG_DATA_HOME:-${HOME}/.local/share}/nb}
+[[ -e ${HOME}/.nb_history ]] ||
+  : ${NB_HIST:=${XDG_STATE_HOME:-${HOME}/.local/state}/nb/history}
+
+# Export unconditionally, so a plain `NB_DIR=…` assignment made before this
+# plugin loads still reaches nb, which runs as an external command. Skip
+# the ones left unset above, rather than exporting empty variables into
+# every child process.
+[[ -n ${NBRC_PATH-} ]] && typeset -gx NBRC_PATH
+[[ -n ${NB_DIR-} ]] && typeset -gx NB_DIR
+[[ -n ${NB_HIST-} ]] && typeset -gx NB_HIST
+
+# Upstream `nb init` writes NBRC_PATH with a bare `>` redirect and no
+# `mkdir -p` safety net, unlike its NB_DIR creation path.
+[[ -e ${NBRC_PATH} || -d ${NBRC_PATH:h} ]] || mkdir -p -- "${NBRC_PATH:h}"
 
 # https://wiki.zshell.dev/community/zsh_plugin_standard#funtions-directory
 if [[ $PMSPEC != *f* ]]; then

@@ -100,16 +100,21 @@ on) is already picked up the same way by `nb` itself: export it before
 [nb's variables reference](https://xwmx.github.io/nb/#-variables) for the
 full list.
 
-The defaulting logic lives in one place,
-[`lib/xdg-defaults.zsh`](../lib/xdg-defaults.zsh), sourced by
-`nb.plugin.zsh`. It needs no ice of its own, and no `.zshrc` boilerplate
-beyond the recipes above. Note that the recipes deliberately do **not**
-use `as'program'`: that mode makes Zi skip `nb.plugin.zsh` entirely, so
-the plugin can set neither these defaults nor `$PATH`. The plugin adds
-its own `bin/` to `$PATH` when the plugin manager does not
-(`$PMSPEC` without `b`, which is Zi's case), so `as'program'` is not
-needed. If you do install with `as'program'`, you are opting out of the
-plugin body and have to set the variables yourself.
+The defaulting logic lives in
+[`nb.plugin.zsh`](../nb.plugin.zsh) itself. It needs no ice of its own
+and no `.zshrc` boilerplate beyond the recipes above.
+
+The recipes deliberately do **not** use `as'program'`. That mode makes
+Zi skip `nb.plugin.zsh` entirely, so the plugin can set neither these
+defaults nor `$PATH`. It is also unnecessary: the plugin adds its own
+`bin/` to `$PATH` whenever the plugin manager does not (a `$PMSPEC`
+without `b`, which is Zi's case). Installing with `as'program'` opts you
+out of the plugin body, and you have to set the variables yourself.
+
+`zi pack for nb` is the one install path these defaults do not reach. It
+installs [`xwmx/nb`](https://github.com/xwmx/nb) upstream directly, not
+this plugin, so there is no `nb.plugin.zsh` in the checkout to load.
+Use one of the recipes above if you want the XDG defaults.
 
 ### [Oh-My-Zsh](https://github.com/ohmyzsh/ohmysh)
 

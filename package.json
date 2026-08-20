@@ -29,7 +29,6 @@
         "as": "completion",
         "atclone": "ln -sfv etc/nb-completion.zsh _nb",
         "atpull": "%atclone",
-        "atinit": "source ./lib/xdg-defaults.zsh",
         "sbin": "nb",
         "nocompile": ""
       }
