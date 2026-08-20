@@ -42,14 +42,14 @@ Feature-rich, next level notebook by [`xwmx/nb`](https://github.com/xwmx/nb)
 [Standard syntax](https://wiki.zshell.dev/docs/guides/syntax/common#standard-syntax)
 
 ```zsh
-zi ice depth'1' blockf
+zi ice depth'1'
 zi light z-shell/nb
 ```
 
 [Standard syntax + Bin Gem Node](https://wiki.zshell.dev/ecosystem/annexes/bin-gem-node)
 
 ```shell
-zi ice depth'1' sbin'bin/*' blockf
+zi ice depth'1' sbin'bin/*'
 zi light z-shell/nb
 ```
 
@@ -57,7 +57,7 @@ zi light z-shell/nb
 
 ```shell
 zi wait lucid for \
-  depth'1' sbin'bin/*' blockf \
+  depth'1' sbin'bin/*' \
     z-shell/nb
 ```
 
@@ -84,7 +84,7 @@ plugin loads (`.zshenv`, `.zshrc`, an `atinit` ice, anything):
 
 ```shell
 NB_DIR="${HOME}/Notes"    # wins over the XDG default below
-zi ice depth'1' sbin'bin/*' blockf
+zi ice depth'1' sbin'bin/*'
 zi light z-shell/nb
 ```
 
