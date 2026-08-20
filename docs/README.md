@@ -42,16 +42,14 @@ Feature-rich, next level notebook by [`xwmx/nb`](https://github.com/xwmx/nb)
 [Standard syntax](https://wiki.zshell.dev/docs/guides/syntax/common#standard-syntax)
 
 ```zsh
-zi ice depth'1' as'program' pick'bin/*' blockf \
-  atinit'[[ -z ${NBRC_PATH:-} && ! -e ${HOME}/.nbrc ]] && { export NBRC_PATH="${XDG_CONFIG_HOME:-${HOME}/.config}/nb/nbrc"; [[ -d ${NBRC_PATH:h} ]] || mkdir -p -- "${NBRC_PATH:h}"; }; [[ -z ${NB_DIR:-} && ! -e ${HOME}/.nb ]] && export NB_DIR="${XDG_DATA_HOME:-${HOME}/.local/share}/nb"; [[ -z ${NB_HIST:-} && ! -e ${HOME}/.nb_history ]] && export NB_HIST="${XDG_STATE_HOME:-${HOME}/.local/state}/nb/history"'
+zi ice depth'1' as'program' pick'bin/*' blockf atinit'source ./lib/xdg-defaults.zsh'
 zi light z-shell/nb
 ```
 
 [Standard syntax + Bin Gem Node](https://wiki.zshell.dev/ecosystem/annexes/bin-gem-node)
 
 ```shell
-zi ice depth'1' as'program' sbin'bin/*' blockf \
-  atinit'[[ -z ${NBRC_PATH:-} && ! -e ${HOME}/.nbrc ]] && { export NBRC_PATH="${XDG_CONFIG_HOME:-${HOME}/.config}/nb/nbrc"; [[ -d ${NBRC_PATH:h} ]] || mkdir -p -- "${NBRC_PATH:h}"; }; [[ -z ${NB_DIR:-} && ! -e ${HOME}/.nb ]] && export NB_DIR="${XDG_DATA_HOME:-${HOME}/.local/share}/nb"; [[ -z ${NB_HIST:-} && ! -e ${HOME}/.nb_history ]] && export NB_HIST="${XDG_STATE_HOME:-${HOME}/.local/state}/nb/history"'
+zi ice depth'1' as'program' sbin'bin/*' blockf atinit'source ./lib/xdg-defaults.zsh'
 zi light z-shell/nb
 ```
 
@@ -59,8 +57,7 @@ zi light z-shell/nb
 
 ```shell
 zi wait lucid for \
-  depth'1' as'program' sbin'bin/*' blockf \
-  atinit'[[ -z ${NBRC_PATH:-} && ! -e ${HOME}/.nbrc ]] && { export NBRC_PATH="${XDG_CONFIG_HOME:-${HOME}/.config}/nb/nbrc"; [[ -d ${NBRC_PATH:h} ]] || mkdir -p -- "${NBRC_PATH:h}"; }; [[ -z ${NB_DIR:-} && ! -e ${HOME}/.nb ]] && export NB_DIR="${XDG_DATA_HOME:-${HOME}/.local/share}/nb"; [[ -z ${NB_HIST:-} && ! -e ${HOME}/.nb_history ]] && export NB_HIST="${XDG_STATE_HOME:-${HOME}/.local/state}/nb/history"' \
+  depth'1' as'program' sbin'bin/*' blockf atinit'source ./lib/xdg-defaults.zsh' \
     z-shell/nb
 ```
 
@@ -94,13 +91,13 @@ and it takes effect. See
 [nb's variables reference](https://xwmx.github.io/nb/#-variables) for the
 full list.
 
+The defaulting logic lives in one place, [`lib/xdg-defaults.zsh`](../lib/xdg-defaults.zsh).
 `as'program'` and `as'completion'` — the modes the recipes above and
-`package.json`'s `zi-ices` both use — never source `nb.plugin.zsh`, so the
-defaulting above ships as the `atinit` ice baked into each recipe (and
-into `package.json` for `zi pack for nb`) rather than living only in the
-plugin file; you don't need to add anything yourself. Managers that do
-source `nb.plugin.zsh` directly, such as Oh-My-Zsh and Zgen below, pick up
-the same defaults from the plugin file itself.
+`package.json`'s `zi-ices` both use — never source `nb.plugin.zsh`, so
+each recipe's `atinit` sources `lib/xdg-defaults.zsh` directly instead;
+it's already part of the recipes above, you don't need to add anything
+yourself. Managers that do source `nb.plugin.zsh` directly, such as
+Oh-My-Zsh and Zgen below, get the same file sourced from the plugin body.
 
 ### [Oh-My-Zsh](https://github.com/ohmyzsh/ohmysh)
 
