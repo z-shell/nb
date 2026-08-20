@@ -42,14 +42,16 @@ Feature-rich, next level notebook by [`xwmx/nb`](https://github.com/xwmx/nb)
 [Standard syntax](https://wiki.zshell.dev/docs/guides/syntax/common#standard-syntax)
 
 ```zsh
-zi ice depth'1' as'program' pick'bin/*' blockf
+zi ice depth'1' as'program' pick'bin/*' blockf \
+  atinit'[[ -z ${NBRC_PATH:-} && ! -e ${HOME}/.nbrc ]] && { export NBRC_PATH="${XDG_CONFIG_HOME:-${HOME}/.config}/nb/nbrc"; [[ -d ${NBRC_PATH:h} ]] || mkdir -p -- "${NBRC_PATH:h}"; }; [[ -z ${NB_DIR:-} && ! -e ${HOME}/.nb ]] && export NB_DIR="${XDG_DATA_HOME:-${HOME}/.local/share}/nb"; [[ -z ${NB_HIST:-} && ! -e ${HOME}/.nb_history ]] && export NB_HIST="${XDG_STATE_HOME:-${HOME}/.local/state}/nb/history"'
 zi light z-shell/nb
 ```
 
 [Standard syntax + Bin Gem Node](https://wiki.zshell.dev/ecosystem/annexes/bin-gem-node)
 
 ```shell
-zi ice depth'1' as'program' sbin'bin/*' blockf
+zi ice depth'1' as'program' sbin'bin/*' blockf \
+  atinit'[[ -z ${NBRC_PATH:-} && ! -e ${HOME}/.nbrc ]] && { export NBRC_PATH="${XDG_CONFIG_HOME:-${HOME}/.config}/nb/nbrc"; [[ -d ${NBRC_PATH:h} ]] || mkdir -p -- "${NBRC_PATH:h}"; }; [[ -z ${NB_DIR:-} && ! -e ${HOME}/.nb ]] && export NB_DIR="${XDG_DATA_HOME:-${HOME}/.local/share}/nb"; [[ -z ${NB_HIST:-} && ! -e ${HOME}/.nb_history ]] && export NB_HIST="${XDG_STATE_HOME:-${HOME}/.local/state}/nb/history"'
 zi light z-shell/nb
 ```
 
@@ -58,6 +60,7 @@ zi light z-shell/nb
 ```shell
 zi wait lucid for \
   depth'1' as'program' sbin'bin/*' blockf \
+  atinit'[[ -z ${NBRC_PATH:-} && ! -e ${HOME}/.nbrc ]] && { export NBRC_PATH="${XDG_CONFIG_HOME:-${HOME}/.config}/nb/nbrc"; [[ -d ${NBRC_PATH:h} ]] || mkdir -p -- "${NBRC_PATH:h}"; }; [[ -z ${NB_DIR:-} && ! -e ${HOME}/.nb ]] && export NB_DIR="${XDG_DATA_HOME:-${HOME}/.local/share}/nb"; [[ -z ${NB_HIST:-} && ! -e ${HOME}/.nb_history ]] && export NB_HIST="${XDG_STATE_HOME:-${HOME}/.local/state}/nb/history"' \
     z-shell/nb
 ```
 
@@ -68,6 +71,36 @@ zi pack for nb
 ```
 
 > The package installed locally into a plugin directory and provided to the command line through _shims_, i.e.: automatic forwarder scripts created under `$ZPFX/bin` (which is added to the `$PATH` by default; shims are also a bin-gem-node annex feature).
+
+### Variables
+
+`nb` writes its notebooks and configuration under `$HOME` by default. This
+plugin exports `NBRC_PATH`, `NB_DIR`, and `NB_HIST` with
+[XDG Base Directory](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html)
+defaults instead — but only when you have not already set the variable
+yourself **and** its legacy `$HOME` path does not already exist. An
+existing `~/.nbrc` or `~/.nb` install keeps working exactly as before;
+only a fresh install gets XDG-compliant paths.
+
+| Variable    | XDG default                                        | Skipped when this already exists |
+| ----------- | -------------------------------------------------- | -------------------------------- |
+| `NBRC_PATH` | `${XDG_CONFIG_HOME:-$HOME/.config}/nb/nbrc`        | `~/.nbrc`                        |
+| `NB_DIR`    | `${XDG_DATA_HOME:-$HOME/.local/share}/nb`          | `~/.nb`                          |
+| `NB_HIST`   | `${XDG_STATE_HOME:-$HOME/.local/state}/nb/history` | `~/.nb_history`                  |
+
+Every other `nb` variable (editor, theme, sync, encryption tool, …) is
+already picked up the same way by `nb` itself: export it before `nb` runs
+and it takes effect. See
+[nb's variables reference](https://xwmx.github.io/nb/#-variables) for the
+full list.
+
+`as'program'` and `as'completion'` — the modes the recipes above and
+`package.json`'s `zi-ices` both use — never source `nb.plugin.zsh`, so the
+defaulting above ships as the `atinit` ice baked into each recipe (and
+into `package.json` for `zi pack for nb`) rather than living only in the
+plugin file; you don't need to add anything yourself. Managers that do
+source `nb.plugin.zsh` directly, such as Oh-My-Zsh and Zgen below, pick up
+the same defaults from the plugin file itself.
 
 ### [Oh-My-Zsh](https://github.com/ohmyzsh/ohmysh)
 
